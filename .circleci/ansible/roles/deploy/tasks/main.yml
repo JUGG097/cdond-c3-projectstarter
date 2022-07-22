@@ -11,6 +11,9 @@
   copy:
     src: ~/project/artifact.tar.gz
     dest: ~/web/artifact.tar.gz
+    owner: ubuntu
+    group: ubuntu
+    mode: 0777
 
 - name: "install tar and gzip"
   become: true
