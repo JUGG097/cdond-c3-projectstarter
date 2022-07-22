@@ -43,7 +43,7 @@
   become: true
   synchronize:
     src: ../../backend/dist
-    dest: /home/ubuntu/mode_app
+    dest: /home/ubuntu/node_app
     recursive: true
 
 - name: "copy node_modules"
