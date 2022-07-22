@@ -27,7 +27,7 @@ commands:
           when: on_fail
           command: |
             # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
-            SUCCESS = curl --insecure https://kvdb.io/EvmgEiSgWX57a1WqWkNBzW/migration_${CIRCLE_WORKFLOW_ID:0:7}
+            SUCCESS = $(curl --insecure https://kvdb.io/EvmgEiSgWX57a1WqWkNBzW/migration_${CIRCLE_WORKFLOW_ID:0:7})
             if(( $SUCCESS==1 )); 
             then
               cd ~/project/backend
@@ -231,9 +231,10 @@ jobs:
           name: Install dependencies
           command: |
             # your code here
+            yum-config-manager --enable rhel-server-rhscl-7-rpms
             yum -y install tar gzip
-            yum install nodejs
-            yum install npm
+            yum install rh-nodejs12
+            scl enable rh-nodejs12 bash
       - run:
           name: Get backend url
           command: |
@@ -275,8 +276,7 @@ jobs:
           command: |
             # your code here
             apk add --update ansible
-            apk add --update nodejs=circleci/node:13.8.0
-            apk add --update npm
+            apk add --update nodejs=13.8.0
             apk add --update aws-cli
 
       - run:
