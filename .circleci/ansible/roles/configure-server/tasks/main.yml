@@ -13,7 +13,7 @@
 - name: "install Typescript"
   become: true
   npm:
-    name: typescriptgit
+    name: typescript
     global: true
     production: true
     state: present
