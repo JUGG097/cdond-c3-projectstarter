@@ -310,7 +310,7 @@ jobs:
           name: Install dependencies
           command: |
             # your code here
-            yum -y install --update curl
+            yum install -y curl
       - run:
           name: Get backend url
           command: |
