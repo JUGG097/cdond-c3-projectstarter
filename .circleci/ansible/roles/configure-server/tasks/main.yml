@@ -1,3 +1,6 @@
+- name: "show remote environment"
+  shell: env
+
 - name: "upgrade packages."
   become: true
   apt:
@@ -9,14 +12,6 @@
     name: ["nodejs", "npm"]
     state: latest
     update_cache: yes
-
-- name: "install Typescript"
-  become: true
-  npm:
-    name: typescript
-    global: true
-    production: true
-    state: present
 
 - name: "install pm2"
   become: true
