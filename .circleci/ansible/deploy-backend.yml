@@ -3,8 +3,6 @@
 - name: "configuration play." 
   hosts: web
   user: ubuntu
-  become_method: sudo
-  become_user: root  
   gather_facts: false
   
   vars:

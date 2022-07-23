@@ -5,21 +5,27 @@
 - name: "Create Directory"
   become: true
   file:
-    path: ~/udapeople/
+    path: ~/web
     state: directory
-    
-- name: "Extract Artifact"
-  become: true
-  unarchive:
-    src: files/artifact.tar.gz
-    dest: ~/udapeople/
 
-- name: "start server"
+- name: "Copy Files"
   become: true
-  shell: | 
-    npm install
-    pm2 stop default
-    pm2 start npm -- start
+  copy:
+    path: artifact.tar.gz
+    dest: ~/web/artifact.tar.gz
+    
+# - name: "Extract Artifact"
+#   become: true
+#   unarchive:
+#     src: files/artifact.tar.gz
+#     dest: ~/udapeople/
+
+# - name: "start server"
+#   become: true
+#   shell: | 
+#     npm install
+#     pm2 stop default
+#     pm2 start npm -- start
   
   environment:
      ENVIRONMENT: production
