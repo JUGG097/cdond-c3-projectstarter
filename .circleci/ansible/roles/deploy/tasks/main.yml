@@ -2,25 +2,37 @@
 - name: "show remote environment"
   shell: env
 
-- name: "Create Directory"
-  become: true
-  file:
-    path: /home/ubuntu/web
-    mode: 0755
-    state: directory
+# - name: "Create Directory"
+#   become: true
+#   file:
+#     path: /home/ubuntu/web
+#     mode: 0755
+#     state: directory
+
+# - name: "Copy Files"
+#   become: true
+#   copy:
+#     src: artifact.tar.gz
+#     dest: /home/ubuntu/web/artifact.tar.gz
+#     mode: 0755
+    
+# - name: "Extract Artifact"
+#   become: true
+#   shell: |
+#     cd /home/ubuntu/web
+#     sudo tar xvzf artifact.tar.gz
 
 - name: "Copy Files"
   become: true
   copy:
     src: artifact.tar.gz
-    dest: /home/ubuntu/web/artifact.tar.gz
+    dest: ~/artifact.tar.gz
     mode: 0755
     
 - name: "Extract Artifact"
   become: true
   shell: |
-    cd /home/ubuntu/web
-    sudo tar xvzf artifact.tar.gz
+    sudo tar xvzf ~/artifact.tar.gz
 
 # - name: "test application"
 #   become: true
@@ -42,8 +54,8 @@
 
 - name: "start server"
   become: true
-  args:
-    chdir: /home/ubuntu/web/dist
+#   args:
+#     chdir: /home/ubuntu/web/dist
   environment:
      ENVIRONMENT: production
      TYPEORM_CONNECTION: "{{ lookup('env', 'TYPEORM_CONNECTION') }}"
@@ -56,9 +68,8 @@
      TYPEORM_PASSWORD: "{{ lookup('env', 'TYPEORM_PASSWORD') }}"
      TYPEORM_DATABASE: "{{ lookup('env', 'TYPEORM_DATABASE') }}"
   shell: | 
-    cd /home/ubuntu/web/dist
     sudo npm install
     sudo pm2 stop default
-    sudo pm2 start main.js --name default
+    sudo pm2 start -- start
   
 
