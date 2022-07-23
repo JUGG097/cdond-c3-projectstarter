@@ -1,31 +1,31 @@
 
-- name: "create directory"
-  file:
-    path: ~/web
-    mode: 0777
-    state: directory
-    owner: ubuntu
-    group: ubuntu
+# - name: "create directory"
+#   file:
+#     path: ~/web
+#     mode: 0777
+#     state: directory
+#     owner: ubuntu
+#     group: ubuntu
 
 - name: "copy files over to instance"
   copy:
     src: artifact.tar.gz
-    dest: ~/web/artifact.tar.gz
+    dest: ~/artifact.tar.gz
 
 - name: "install tar and gzip"
   become: true
   command: |
     apt-get install tar gzip -y
 
-- name: "Check for tar file"
-  become: true
-  command: ls -l ~/web
+# - name: "Check for tar file"
+#   become: true
+#   command: ls -l ~/web
 
 - name: "extract backend file"
   become: true
   command: |
-    tar -xzvf ~/web/artifact.tar.gz
-    rm -rf ~/web/artifact.tar.gz
+    tar -xzvf ~/artifact.tar.gz
+    rm -rf ~/artifact.tar.gz
 
 - name: "start backend with pm2"
   become: true
