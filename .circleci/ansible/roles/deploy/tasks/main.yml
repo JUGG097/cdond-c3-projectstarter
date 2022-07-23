@@ -49,17 +49,41 @@
 #     src: ../../backend/node_modules
 #     dest: /home/ubuntu/node_app
 #     recursive: true
+- name: "install dependencies."
+  become: true
+  apt:
+    name: ["nodejs", "npm"]
+    state: latest
+    update_cache: yes
+
+- name: "install Typescript"
+  become: true
+  npm:
+    name: typescript
+    global: true
+    production: true
+    state: present
+
+- name: "install pm2"
+  become: true
+  npm:
+    name: pm2
+    global: yes
+    production: yes
+    state: present
+
 - name: "Extract Artifact"
   become: yes
   unarchive:
         src: files/artifact.tar.gz
         dest: ~/
+        
 - name: "start server"
   become: true
   shell: | 
         npm install
         pm2 stop default
-        sudo pm2 start npm -- start
+        pm2 start npm -- start
 
 # - name: "delete anything that might already be running"
 #   become: true
