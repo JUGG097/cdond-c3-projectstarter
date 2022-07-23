@@ -22,28 +22,28 @@
     cd /home/ubuntu/web
     sudo tar xvzf artifact.tar.gz
 
-- name: "test application"
-  become: true
-  environment:
-     ENVIRONMENT: production
-     TYPEORM_CONNECTION: "{{ lookup('env', 'TYPEORM_CONNECTION') }}"
-     TYPEORM_MIGRATIONS_DIR: "./migrations"
-     TYPEORM_MIGRATIONS: "./migrations/*.js"
-     TYPEORM_ENTITIES: "./modules/domain/**/*.entity.js"
-     TYPEORM_HOST: "{{ lookup('env', 'TYPEORM_HOST') }}"
-     TYPEORM_PORT: "{{ lookup('env', 'TYPEORM_PORT') }}"
-     TYPEORM_USERNAME: "{{ lookup('env', 'TYPEORM_USERNAME') }}"
-     TYPEORM_PASSWORD: "{{ lookup('env', 'TYPEORM_PASSWORD') }}"
-     TYPEORM_DATABASE: "{{ lookup('env', 'TYPEORM_DATABASE') }}"
-  shell: | 
-    cd /home/ubuntu/web/dist
-    sudo npm install
-    node main.js
+# - name: "test application"
+#   become: true
+#   environment:
+#      ENVIRONMENT: production
+#      TYPEORM_CONNECTION: "{{ lookup('env', 'TYPEORM_CONNECTION') }}"
+#      TYPEORM_MIGRATIONS_DIR: "./migrations"
+#      TYPEORM_MIGRATIONS: "./migrations/*.js"
+#      TYPEORM_ENTITIES: "./modules/domain/**/*.entity.js"
+#      TYPEORM_HOST: "{{ lookup('env', 'TYPEORM_HOST') }}"
+#      TYPEORM_PORT: "{{ lookup('env', 'TYPEORM_PORT') }}"
+#      TYPEORM_USERNAME: "{{ lookup('env', 'TYPEORM_USERNAME') }}"
+#      TYPEORM_PASSWORD: "{{ lookup('env', 'TYPEORM_PASSWORD') }}"
+#      TYPEORM_DATABASE: "{{ lookup('env', 'TYPEORM_DATABASE') }}"
+#   shell: | 
+#     cd /home/ubuntu/web/dist
+#     sudo npm install
+#     node main.js
 
 - name: "start server"
   become: true
-  args:
-    chdir: /home/ubuntu/web
+#   args:
+#     chdir: /home/ubuntu/web
   environment:
      ENVIRONMENT: production
      TYPEORM_CONNECTION: "{{ lookup('env', 'TYPEORM_CONNECTION') }}"
@@ -59,7 +59,6 @@
     cd /home/ubuntu/web/dist
     sudo npm install
     sudo pm2 stop default
-    # pm2 start npm -- start
     sudo pm2 start main.js --name default
   
 
