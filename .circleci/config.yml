@@ -282,6 +282,7 @@ jobs:
       - run:
           name: Deploy backend
           command: |
+            # Add environment variables
             echo NODE_ENV=production > ~/project/backend/.env
             echo VERSION=1 >> ~/project/backend/.env
             echo TYPEORM_CONNECTION=$TYPEORM_CONNECTION >> ~/project/backend/.env
