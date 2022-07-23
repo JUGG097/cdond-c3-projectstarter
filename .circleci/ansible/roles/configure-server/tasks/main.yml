@@ -1,5 +1,3 @@
-- name: "show remote environment"
-  shell: env
 
 - name: "upgrade packages."
   become: true

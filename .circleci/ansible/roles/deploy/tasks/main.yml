@@ -1,20 +1,26 @@
 
-- name: "show remote environment"
-  shell: env
+# - name: "show remote environment"
+#   shell: env
 
+- name: "Create Directory"
+  become: true
+  file:
+    path: ~/udapeople/
+    state: directory
+    
 - name: "Extract Artifact"
   become: true
   unarchive:
-        src: files/artifact.tar.gz
-        dest: ~/
+    src: files/artifact.tar.gz
+    dest: ~/udapeople/
 
 - name: "start server"
   become: true
   shell: | 
-        npm install
-        pm2 stop default
-        sudo pm2 start npm -- start
-
+    npm install
+    pm2 stop default
+    pm2 start npm -- start
+  
   environment:
      ENVIRONMENT: production
      TYPEORM_CONNECTION: "{{ lookup('env', 'TYPEORM_CONNECTION') }}"
