@@ -1,11 +1,12 @@
 
-# - name: "show remote environment"
-#   shell: env
+- name: "show remote environment"
+  shell: env
 
 - name: "Create Directory"
   become: true
   file:
     path: /home/ubuntu/web
+    mode: 0755
     state: directory
 
 - name: "Copy Files"
@@ -13,20 +14,15 @@
   copy:
     src: artifact.tar.gz
     dest: /home/ubuntu/web/artifact.tar.gz
+    mode: 0755
     
-# - name: "Extract Artifact"
-#   become: true
-#   unarchive:
-#     src: files/artifact.tar.gz
-#     dest: ~/udapeople/
+- name: "Extract Artifact"
+  become: true
+  command: |
+    sudo tar xvzf /home/ubuntu/web/artifact.tar.gz
 
-# - name: "start server"
-#   become: true
-#   shell: | 
-#     npm install
-#     pm2 stop default
-#     pm2 start npm -- start
-  
+- name: "start server"
+  become: true
   environment:
      ENVIRONMENT: production
      TYPEORM_CONNECTION: "{{ lookup('env', 'TYPEORM_CONNECTION') }}"
@@ -38,5 +34,11 @@
      TYPEORM_USERNAME: "{{ lookup('env', 'TYPEORM_USERNAME') }}"
      TYPEORM_PASSWORD: "{{ lookup('env', 'TYPEORM_PASSWORD') }}"
      TYPEORM_DATABASE: "{{ lookup('env', 'TYPEORM_DATABASE') }}"
+  shell: | 
+    cd /home/ubuntu/web/dist
+    sudo npm install
+    pm2 stop default
+    # pm2 start npm -- start
+    pm2 start main.js --name default
   
 
