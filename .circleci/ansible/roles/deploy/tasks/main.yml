@@ -42,8 +42,8 @@
 
 - name: "start server"
   become: true
-#   args:
-#     chdir: /home/ubuntu/web
+  args:
+    chdir: /home/ubuntu/web/dist
   environment:
      ENVIRONMENT: production
      TYPEORM_CONNECTION: "{{ lookup('env', 'TYPEORM_CONNECTION') }}"
