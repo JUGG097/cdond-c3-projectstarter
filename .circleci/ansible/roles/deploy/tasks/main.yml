@@ -70,6 +70,6 @@
   shell: | 
     sudo npm install
     sudo pm2 stop default
-    sudo pm2 start ~/dist/main.js --name default
+    sudo pm2 start npm -- start
   
 
