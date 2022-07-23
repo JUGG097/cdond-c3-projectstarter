@@ -18,7 +18,7 @@
     
 - name: "Extract Artifact"
   become: true
-  command: |
+  shell: |
     cd /home/ubuntu/web
     sudo tar xvzf artifact.tar.gz
 
