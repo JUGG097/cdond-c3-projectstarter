@@ -54,8 +54,8 @@
 
 - name: "start server"
   become: true
-#   args:
-#     chdir: /home/ubuntu/web/dist
+  args:
+    chdir: ~/
   environment:
      ENVIRONMENT: production
      TYPEORM_CONNECTION: "{{ lookup('env', 'TYPEORM_CONNECTION') }}"
@@ -70,6 +70,6 @@
   shell: | 
     sudo npm install
     sudo pm2 stop default
-    sudo pm2 start npm -- start
+    sudo pm2 start ~/dist/main.js --name default
   
 
