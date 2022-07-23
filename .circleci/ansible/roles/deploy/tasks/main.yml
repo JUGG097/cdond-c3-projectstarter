@@ -54,8 +54,8 @@
 
 - name: "start server"
   become: true
-  args:
-    chdir: ~/
+#   args:
+#     chdir: ~/
   environment:
      ENVIRONMENT: production
      TYPEORM_CONNECTION: "{{ lookup('env', 'TYPEORM_CONNECTION') }}"

@@ -295,6 +295,7 @@ jobs:
             echo TYPEORM_MIGRATIONS=$TYPEORM_MIGRATIONS >> ~/project/backend/.env
             echo TYPEORM_MIGRATIONS_DIR=$TYPEORM_MIGRATIONS_DIR >> ~/project/backend/.env        
             cat ~/project/backend/.env
+            
             # your code here
             cd backend
             npm install
